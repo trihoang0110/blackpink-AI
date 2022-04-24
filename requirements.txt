@@ -65,6 +65,3 @@ Send2Trash==1.8.0
 six==1.16.0
 stack-data==0.2.0
 tensorflow==2.8.0
-tensorflow-io-gcs-filesystem==0.24.0
-
-t
