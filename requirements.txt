@@ -17,7 +17,7 @@ cycler==0.11.0
 debugpy==1.5.1
 decorator==5.1.1
 defusedxml==0.7.1
-dlib @ file:///D:/blackpink/dlib-19.22.99-cp39-cp39-win_amd64.whl
+Dlib==19.21.1
 entrypoints==0.4
 executing==0.8.2
 Flask==2.0.3
