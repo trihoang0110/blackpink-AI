@@ -35,7 +35,7 @@ def classify_image(image_base64_data):
             # print(log_pred)
             # print(svm_pred)
             # print(rf_pred)
-            # counts = Counter([svm_pred, log_pred, rf_pred])
+            counts = Counter([svm_pred, log_pred, rf_pred])
             svm_max = max(svm_prob)
             log_max = max(log_prob)
             rf_max = max(rf_prob)
@@ -87,15 +87,23 @@ def get_cv2_image_from_base64_string(b64str):
     return img
 
 def get_cropped_image_if_2_eyes(image_base64_data):
-    face_detector = dlib.get_frontal_face_detector()
-    img = get_cv2_image_from_base64_string(image_base64_data)
+    face_cascade = cv2.CascadeClassifier('D:/blackpink/Server/haarcascade/haarcascade_frontalface_default.xml')
+    eye_cascade = cv2.CascadeClassifier('D:/blackpink/Server/haarcascade/haarcascade_eye.xml')
+
+    eyes_li = []
     roi_color_li = []
     try:
-        faces = face_detector(img, 1)
-        for face in faces:
-            l,t,r,b = face.left(), face.top(), face.right(), face.bottom()
-            roi_color = img[t:b, l:r]
-            roi_color_li.append(roi_color)
+        img = get_cv2_image_from_base64_string(image_base64_data)
+        print(img.shape)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        for (x,y,w,h) in faces:
+            roi_gray = gray[y:y+h, x:x+w]
+            roi_color = img[y:y+h, x:x+w]
+            eyes = eye_cascade.detectMultiScale(roi_gray)
+            if len(eyes) >=2:
+                eyes_li.append(eyes)
+                roi_color_li.append(roi_color)
         return roi_color_li
     except Exception as e:
         print(e)

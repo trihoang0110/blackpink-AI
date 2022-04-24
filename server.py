@@ -15,7 +15,7 @@ def classify_image():
         try:
             image_data = request.form['image_data']
             response = util.classify_image(image_data)
-            print(response)
+            # print(response)
             json_response = json.dumps(response, indent = 4)
             return json_response
         except Exception as e:
@@ -26,4 +26,4 @@ def classify_image():
 
 if __name__ == "__main__":
     util.load_saved_artifacts()
-    app.run()
+    app.run(debug=True)
