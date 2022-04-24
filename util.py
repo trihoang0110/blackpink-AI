@@ -3,7 +3,6 @@ import numpy as np
 import json
 import base64
 import cv2
-import dlib
 import pickle
 from tensorflow import keras
 from feature_extraction import extractor
